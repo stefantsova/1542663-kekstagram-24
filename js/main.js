@@ -1,4 +1,8 @@
-const PHOTO_DESCRIPTIONS_COUNT = 25;
+// -------------------------------------------
+// Константы
+// -------------------------------------------
+
+const POSTS_COUNT = 25;
 
 const MESSAGES = [
   'Всё отлично!',
@@ -20,32 +24,131 @@ const NAMES = [
   'Вашингтон',
 ];
 
-const getRandomIntInclusive = (min, max) => {
-  if (min >= 0 && max >=0) {
-    if (min > max) {
-      const oldMin = min;
-      min = max;
-      max = oldMin;
-    }
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+// -------------------------------------------
+// Функции
+// -------------------------------------------
+
+
+/**
+ * Случайное целое, в диапазоне, включительно
+ * @param {number} min - Значение от
+ * @param {number} max - Значение до
+ */
+const getRandomPositiveInteger = (min, max) => {
+  if (typeof min !== 'number' || typeof max !== 'number') {
+    throw new Error('Один из аргументов не число.');
   }
+
+  if (min < 0 || max < 0) {
+    throw new Error('Один из аргументов меньше нуля.');
+  }
+
+  if (min === max) {
+    return min;
+  }
+
+  if (min > max) {
+    const oldMin = min;
+    min = max;
+    max = oldMin;
+  }
+
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const createCommentDescription = (index) => ({
-  id: index,
-  avatar: `img/avatar-${getRandomIntInclusive(1, 6)}.svg`,
-  message: MESSAGES[getRandomIntInclusive(0, (MESSAGES.length - 1))],
-  name: NAMES[getRandomIntInclusive(0, (NAMES.length - 1))],
-});
+/**
+ * Генератор случайного целого числа, со случайным шагом
+ * @param {number} [maxStep] - Максимальный шаг
+ */
+const getNextRandomInteger = function (maxStep = 5) {
+  let currentNumber = 0;
 
-const createPhotoDescription = (index) => ({
-  id: index + 1,
-  url: `photos/${index + 1}.jpg`,
-  description: 'Тут будет описание фотографии',
-  likes: getRandomIntInclusive(15, 200),
-  comments: new Array(3).fill(null).map((_, commentIndex) => createCommentDescription(index*10 + commentIndex + 1)),
-});
+  return function() {
+    currentNumber += getRandomPositiveInteger(1, maxStep);
+    return currentNumber;
+  };
+};
 
-const photoDescriptions = new Array(PHOTO_DESCRIPTIONS_COUNT).fill(null).map((_, index) => createPhotoDescription(index));
+const getNextCommentId = getNextRandomInteger();
+
+// -------------------------------------------
+// Конструкторы
+// -------------------------------------------
+
+/**
+ * Описание фотографии
+ * @param {number} id - Уникальный идентфикатор
+ * @param {string} url - Уникальный идентфикатор
+ * @param {string} description - Уникальный идентфикатор
+ * @param {number} likes - Уникальный идентфикатор
+ * @param {PhotoComment[]} comments - Уникальный идентфикатор
+ */
+const Post = function (id, url, description, likes, comments) {
+  this.id = id;
+  this.url = url;
+  this.description = description;
+  this.likes = likes;
+  this.comments = comments;
+};
+
+/**
+ * Комментарий
+ * @param {number} id - Уникальный идентфикатор комментария
+ * @param {string} avatar - Аватар комментатора
+ * @param {string} message - Сообщение
+ * @param {string} name - Имя комментатора
+ */
+const PostComment = function (id, avatar, message, name) {
+  this.id = id;
+  this.avatar = avatar;
+  this.message = message;
+  this.name = name;
+};
+
+// -------------------------------------------
+// Генераторы
+// -------------------------------------------
+
+/**
+ * Генератор сообщения
+ * Вовзращает сообщение из одной или двух случайных строк
+ */
+const createCommentMessage = function () {
+  return MESSAGES.sort(() => Math.random() - 0.5).slice(0, getRandomPositiveInteger(1, 2)).join(' ');
+};
+
+/**
+ * Генератор комментариев
+ */
+const createPostComments = function () {
+  const commentsCount = getRandomPositiveInteger(1,3);
+  return new Array(commentsCount).fill(null).map(() => {
+    const id = getNextCommentId();
+    const avatar = `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`;
+    const message = createCommentMessage();
+    const name = NAMES[getRandomPositiveInteger(0, (NAMES.length - 1))];
+
+    return new PostComment(id, avatar, message, name);
+  });
+};
+
+/**
+ * Генератор постов
+ * @param {number} postsCount - Количество постов
+ */
+const createPosts = function (postsCount) {
+  return new Array(postsCount).fill(null).map((_, index) => {
+    const id = index + 1;
+    const url = `photos/${index + 1}.jpg`;
+    const description = 'Тут будет описание фотографии';
+    const likes = getRandomPositiveInteger(15, 200);
+    const comments = createPostComments();
+
+    return new Post(id, url, description, likes, comments);
+  });
+};
+
+createPosts(POSTS_COUNT);
