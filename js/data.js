@@ -94,7 +94,7 @@ const createPostComments = function () {
  * Генератор постов
  * @param {number} postsCount - Количество постов
  */
-const createPosts = function (postsCount) {
+const createPosts = function (postsCount = 1) {
   return new Array(postsCount).fill(null).map((_, index) => {
     const id = index + 1;
     const url = `photos/${index + 1}.jpg`;
