@@ -4,3 +4,4 @@ import {POSTS_COUNT, createPosts} from './data.js';
 import './other-users-pictures.js';
 
 createPosts(POSTS_COUNT);
+
