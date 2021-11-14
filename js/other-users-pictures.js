@@ -33,7 +33,7 @@ const commentsList = document.querySelector('.social__comments');
 postComments.forEach((postComment) => {
   const newListElement = document.createElement('li');
   newListElement.classList.add('social__comment');
-  newListElement.innerHTML = '<img class="social__picture" src="' + postComment.avatar + '" alt="' + postComment.name + '"><p class="social__text">' + postComment.message + '</p>';
+  newListElement.innerHTML = `<img class="social__picture" src="${postComment.avatar}" alt="${postComment.name}"><p class="social__text">${postComment.message} + '</p>`;
   commentsList.appendChild(newListElement);
 });
 
