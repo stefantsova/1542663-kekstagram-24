@@ -79,7 +79,7 @@ const createCommentMessage = function () {
  * Генератор комментариев
  */
 const createPostComments = function () {
-  const commentsCount = getRandomPositiveInteger(1,3);
+  const commentsCount = getRandomPositiveInteger(5,15);
   return new Array(commentsCount).fill(null).map(() => {
     const id = getNextCommentId();
     const avatar = `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`;
@@ -106,4 +106,4 @@ const createPosts = function (postsCount = 1) {
   });
 };
 
-export {POSTS_COUNT, createPosts};
+export {POSTS_COUNT, createPostComments, createPosts};
