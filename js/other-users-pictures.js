@@ -1,4 +1,4 @@
-import {createPostComments, createPosts} from './data.js';
+import {createPosts} from './data.js';
 import {openModal, updateModalData} from './fullsize-picture.js';
 
 const picturesBlock = document.querySelector('.pictures');
@@ -26,15 +26,5 @@ similarPictures.forEach(({url, description, likes, comments}) => {
 });
 
 picturesBlock.appendChild(similarFragment);
-
-const postComments = createPostComments();
-const commentsList = document.querySelector('.social__comments');
-
-postComments.forEach((postComment) => {
-  const newListElement = document.createElement('li');
-  newListElement.classList.add('social__comment');
-  newListElement.innerHTML = `<img class="social__picture" src="${postComment.avatar}" alt="${postComment.name}"><p class="social__text">${postComment.message} + '</p>`;
-  commentsList.appendChild(newListElement);
-});
 
 export {similarPictures};

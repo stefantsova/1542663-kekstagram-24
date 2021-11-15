@@ -35,6 +35,27 @@ const updateModalData = function (url, likes, comments) {
   fullSizePicture.querySelector('img').src = url;
   fullSizeLikes.textContent = likes;
   fullSizeComments.textContent = comments.length;
+
+  const commentsList = document.querySelector('.social__comments');
+  const defaultListElements = commentsList.querySelectorAll('.social__comment');
+
+  Array.from(defaultListElements).forEach((el) => {el.remove();});
+
+  const modalComments = document.createDocumentFragment();
+
+  comments.forEach((comment) => {
+    const socialCommentElement = document.createElement('li');
+    socialCommentElement.classList.add('social__comment');
+
+    socialCommentElement.innerHTML = `
+      <img class="social__picture" src="${comment.avatar}" alt="${comment.name}">
+      <p class="social__text">${comment.message}</p>
+    `;
+
+    modalComments.appendChild(socialCommentElement);
+  });
+
+  commentsList.appendChild(modalComments);
 };
 
 export {openModal, updateModalData};
