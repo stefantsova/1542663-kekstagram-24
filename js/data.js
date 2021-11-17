@@ -1,5 +1,5 @@
-import {getRandomPositiveInteger} from './utils/get-random-positive-integer.js';
-import {getNextRandomInteger} from './utils/get-next-random-integer.js';
+import { getRandomPositiveInteger } from './utils/get-random-positive-integer.js';
+import { getNextRandomInteger } from './utils/get-next-random-integer.js';
 
 // -------------------------------------------
 // Константы
@@ -41,13 +41,13 @@ const getNextCommentId = getNextRandomInteger();
  * @param {number} likes - Уникальный идентфикатор
  * @param {PhotoComment[]} comments - Уникальный идентфикатор
  */
-const Post = function (id, url, description, likes, comments) {
+function Post(id, url, description, likes, comments) {
   this.id = id;
   this.url = url;
   this.description = description;
   this.likes = likes;
   this.comments = comments;
-};
+}
 
 /**
  * Комментарий
@@ -56,12 +56,12 @@ const Post = function (id, url, description, likes, comments) {
  * @param {string} message - Сообщение
  * @param {string} name - Имя комментатора
  */
-const PostComment = function (id, avatar, message, name) {
+function PostComment(id, avatar, message, name) {
   this.id = id;
   this.avatar = avatar;
   this.message = message;
   this.name = name;
-};
+}
 
 // -------------------------------------------
 // Генераторы
@@ -71,14 +71,12 @@ const PostComment = function (id, avatar, message, name) {
  * Генератор сообщения
  * Вовзращает сообщение из одной или двух случайных строк
  */
-const createCommentMessage = function () {
-  return MESSAGES.sort(() => Math.random() - 0.5).slice(0, getRandomPositiveInteger(1, 2)).join(' ');
-};
+const createCommentMessage = () => MESSAGES.sort(() => Math.random() - 0.5).slice(0, getRandomPositiveInteger(1, 2)).join(' ');
 
 /**
  * Генератор комментариев
  */
-const createPostComments = function () {
+const createPostComments = () => {
   const commentsCount = getRandomPositiveInteger(5,15);
   return new Array(commentsCount).fill(null).map(() => {
     const id = getNextCommentId();
@@ -94,8 +92,9 @@ const createPostComments = function () {
  * Генератор постов
  * @param {number} postsCount - Количество постов
  */
-const createPosts = function (postsCount = 1) {
-  return new Array(postsCount).fill(null).map((_, index) => {
+const createPosts = (postsCount = 1) => new Array(postsCount)
+  .fill(null)
+  .map((_, index) => {
     const id = index + 1;
     const url = `photos/${index + 1}.jpg`;
     const description = 'Тут будет описание фотографии';
@@ -104,6 +103,5 @@ const createPosts = function (postsCount = 1) {
 
     return new Post(id, url, description, likes, comments);
   });
-};
 
-export {POSTS_COUNT, createPostComments, createPosts};
+export { POSTS_COUNT, createPostComments, createPosts };
