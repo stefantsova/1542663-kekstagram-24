@@ -77,7 +77,7 @@ const createCommentMessage = () => MESSAGES.sort(() => Math.random() - 0.5).slic
  * Генератор комментариев
  */
 const createPostComments = () => {
-  const commentsCount = getRandomPositiveInteger(5,15);
+  const commentsCount = getRandomPositiveInteger(4,12);
   return new Array(commentsCount).fill(null).map(() => {
     const id = getNextCommentId();
     const avatar = `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`;
@@ -104,4 +104,4 @@ const createPosts = (postsCount = 1) => new Array(postsCount)
     return new Post(id, url, description, likes, comments);
   });
 
-export { POSTS_COUNT, createPostComments, createPosts };
+export { POSTS_COUNT, createPosts };

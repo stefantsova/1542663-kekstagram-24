@@ -1,12 +1,12 @@
-import { createPosts } from './data.js';
+import { createPosts, POSTS_COUNT } from './data.js';
 import { openModal, updateModalData } from './fullsize-picture.js';
 
 // Селекторы
 
-const picturesBlock = document.querySelector('.pictures');
+const picturesBlockElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const similarPictures = createPosts(19);
+const similarPictures = createPosts(POSTS_COUNT);
 
 const similarFragment = document.createDocumentFragment();
 
@@ -27,4 +27,4 @@ similarPictures.forEach(({ url, description, likes, comments}) => {
   similarFragment.appendChild(pictureElement);
 });
 
-picturesBlock.appendChild(similarFragment);
+picturesBlockElement.appendChild(similarFragment);
