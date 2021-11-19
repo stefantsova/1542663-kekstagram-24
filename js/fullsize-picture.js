@@ -7,16 +7,16 @@ const fullSizeLikesElement = fullSizePostElement.querySelector('.likes-count');
 const fullSizeCommentsElement = fullSizePostElement.querySelector('.comments-count');
 const fullSizePostCloseElement = fullSizePostElement.querySelector('.big-picture__cancel');
 const commentsListElement = fullSizePostElement.querySelector('.social__comments');
-const loadMoreCommentsButtonElement = fullSizePostElement.querySelector('.social__comments-loader');
+const loadMoreCommentsButton = fullSizePostElement.querySelector('.social__comments-loader');
 const socialCommentsCountElement = fullSizePostElement.querySelector('.social__comment-count');
 
 // Методы
 const showLoadMoreCommentsButton = () => {
-  loadMoreCommentsButtonElement.classList.remove('hidden');
+  loadMoreCommentsButton.classList.remove('hidden');
 };
 
 const hideLoadMoreCommentsButton = () => {
-  loadMoreCommentsButtonElement.classList.add('hidden');
+  loadMoreCommentsButton.classList.add('hidden');
 };
 
 const closeModal = () => {
@@ -86,7 +86,7 @@ const updateModalData = (url, likes, comments) => {
 
 // Слушатели
 
-loadMoreCommentsButtonElement.addEventListener('click', loadComments);
+loadMoreCommentsButton.addEventListener('click', loadComments);
 
 fullSizePostCloseElement.addEventListener('click', () => {
   closeModal();

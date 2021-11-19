@@ -5,7 +5,7 @@ import { getNextRandomInteger } from './utils/get-next-random-integer.js';
 // Константы
 // -------------------------------------------
 
-const POSTS_COUNT = 25;
+const POSTS_COUNT = 19;
 
 const MESSAGES = [
   'Всё отлично!',
