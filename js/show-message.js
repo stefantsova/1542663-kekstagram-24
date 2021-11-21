@@ -19,7 +19,7 @@ function buttonClickHandler () {
 const showMessage = (template) => {
   messageElement = template.cloneNode(true);
 
-  const messageClass = messageElement.className;
+  const messageClass = messageElement.getAttribute('class');
   messageButton = messageElement.querySelector(`.${messageClass}__button`);
 
   messageElement.addEventListener('click', messageOutsideClickHandler);

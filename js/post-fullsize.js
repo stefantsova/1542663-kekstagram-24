@@ -56,10 +56,16 @@ const loadComments = () => {
     const socialCommentElement = document.createElement('li');
     socialCommentElement.classList.add('social__comment');
 
-    socialCommentElement.innerHTML = `
-      <img class="social__picture" src="${comment.avatar}" alt="${comment.name}">
-      <p class="social__text">${comment.message}</p>
-    `;
+    const socialAvatarElement = document.createElement('img');
+    socialAvatarElement.classList.add('social__picture');
+    socialAvatarElement.src = comment.avatar;
+    socialAvatarElement.alt = comment.name;
+    socialCommentElement.append(socialAvatarElement);
+
+    const socialText = document.createElement('p');
+    socialText.classList.add('social__text');
+    socialText.textContent = comment.message;
+    socialCommentElement.append(socialText);
 
     modalComments.appendChild(socialCommentElement);
   });
