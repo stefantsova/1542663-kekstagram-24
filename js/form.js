@@ -22,6 +22,8 @@ const hashtagsInputElement = imgUploadFormElement.querySelector('.text__hashtags
 const imgDescriptionInputElement = imgUploadFormElement.querySelector('.text__description');
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+const imgPreviewElement = imgUploadFormElement.querySelector('.img-upload__preview img');
+const imgEffectsPreviewElements = imgUploadFormElement.querySelectorAll('.effects__preview');
 
 // Методы
 
@@ -67,7 +69,15 @@ const showErrorMessage = () => {
   showMessage(errorMessageTemplate);
 };
 
-const onUploadFileChange = () => {
+const onUploadFileChange = (evt) => {
+  const previewImageSrc = URL.createObjectURL(evt.target.files[0]);
+
+  imgPreviewElement.src = previewImageSrc;
+
+  imgEffectsPreviewElements.forEach((previewElement) => {
+    previewElement.style.backgroundImage = `url('${previewImageSrc}')`;
+  });
+
   imgEditFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
 
