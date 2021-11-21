@@ -1,10 +1,11 @@
 import './form.js';
 import './image-edit.js';
-import { renderPosts } from './posts-thumbnails.js';
+import { showThumbnailsFilters, onGetPosts } from './posts-thumbnails.js';
 import { getPosts } from './api.js';
 
-getPosts().then((pictures) => {
-  if (Array.isArray(pictures)) {
-    renderPosts(pictures);
+getPosts().then((posts) => {
+  if (Array.isArray(posts)) {
+    onGetPosts(posts);
+    showThumbnailsFilters();
   }
 });
