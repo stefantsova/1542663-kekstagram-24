@@ -2,8 +2,13 @@ import clampNumber from './utils/clamp-number.js';
 import removeClassByPrefix from './utils/remove-class-by-prefix.js';
 
 const SCALE_SIZE_STEP = 25;
-const MIN_SCALE_SIZE = 25;
-const MAX_SCALE_SIZE = 100;
+const SCALE_SIZE_MIN = 25;
+const SCALE_SIZE_MAX = 100;
+const SCALE_SIZE_DEFAULT = 100;
+
+const DEFAULT_EFFECT_LEVEL_VALUE = 0;
+
+const EFFECT_CLASS_PREFIX = 'effects__preview--';
 
 const EffectFilters = {
   chrome: {filter: 'grayscale', min: 0, max: 1, step: 0.1},
@@ -28,7 +33,7 @@ let currentImgEffect = 'none';
 // Методы
 
 const changeScaleValue = (newValue) => {
-  scaleControlInput.value = `${newValue}%`;
+  scaleControlInput.setAttribute('value', `${newValue}%`);
 
   imgPreviewElement.style.transform = `scale(${newValue * 0.01})`;
 };
@@ -36,11 +41,11 @@ const changeScaleValue = (newValue) => {
 const getScaleValue = () => parseInt(scaleControlInput.value, 10);
 
 const incScaleValue = () => {
-  changeScaleValue(clampNumber(getScaleValue() + SCALE_SIZE_STEP, MIN_SCALE_SIZE, MAX_SCALE_SIZE));
+  changeScaleValue(clampNumber(getScaleValue() + SCALE_SIZE_STEP, SCALE_SIZE_MIN, SCALE_SIZE_MAX));
 };
 
 const decScaleValue = () => {
-  changeScaleValue(clampNumber(getScaleValue() - SCALE_SIZE_STEP, MIN_SCALE_SIZE, MAX_SCALE_SIZE));
+  changeScaleValue(clampNumber(getScaleValue() - SCALE_SIZE_STEP, SCALE_SIZE_MIN, SCALE_SIZE_MAX));
 };
 
 const showEffectSlider = () => {
@@ -51,19 +56,26 @@ const hideEffectSlider = () => {
   effectLevelSliderElement.classList.add('hidden');
 };
 
+const resetImgEffectClass = () => {
+  removeClassByPrefix(imgPreviewElement, EFFECT_CLASS_PREFIX);
+};
+
+const setEffectLevelValue = (value) => {
+  effectLevelSliderElement.noUiSlider.set(value);
+};
+
 // События
 
 scaleSmallerButton.addEventListener('click', decScaleValue);
 scaleBiggerButton.addEventListener('click', incScaleValue);
 
 effectsSelectFieldset.addEventListener('change', (evt) => {
-  const effectClassPrefix = 'effects__preview--';
   const effectName = evt.target.value;
-  removeClassByPrefix(imgPreviewElement, effectClassPrefix);
+  resetImgEffectClass();
   currentImgEffect = effectName;
 
   if (Object.keys(EffectFilters).includes(effectName)) {
-    imgPreviewElement.classList.add(`${effectClassPrefix}${effectName}`);
+    imgPreviewElement.classList.add(`${EFFECT_CLASS_PREFIX}${effectName}`);
     showEffectSlider();
     const {step, min, max} = EffectFilters[effectName];
 
@@ -72,7 +84,7 @@ effectsSelectFieldset.addEventListener('change', (evt) => {
       true,
     );
 
-    effectLevelSliderElement.noUiSlider.set(EffectFilters[effectName].min);
+    setEffectLevelValue(EffectFilters[effectName].min);
 
   } else {
     hideEffectSlider();
@@ -104,3 +116,5 @@ effectLevelSliderElement.noUiSlider.on('update', (values, handle) => {
 });
 
 hideEffectSlider();
+
+export {SCALE_SIZE_DEFAULT, DEFAULT_EFFECT_LEVEL_VALUE, changeScaleValue, resetImgEffectClass, setEffectLevelValue};
