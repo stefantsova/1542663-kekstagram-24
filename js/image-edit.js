@@ -66,11 +66,11 @@ const setEffectLevelValue = (value) => {
 
 const scaleSmallerButtonClickHandler = () => {
   decScaleValue();
-}
+};
 
 const scaleBiggerButtonClickHandler = () => {
   incScaleValue();
-}
+};
 
 // События
 

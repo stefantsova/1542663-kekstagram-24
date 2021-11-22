@@ -29,7 +29,7 @@ const getPosts = () => fetch('https://24.javascript.pages.academy/kekstagram/dat
     }
     return response.json();
   })
-  .catch((reason) => {
+  .catch(() => {
     fetchErrorHandler('Произошла ошибка');
   });
 

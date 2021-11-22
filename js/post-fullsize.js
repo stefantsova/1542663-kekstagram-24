@@ -92,7 +92,7 @@ const updateModalData = (url, likes, comments) => {
 
 const loadMoreCommentsButtonClickHandler = () => {
   loadComments();
-}
+};
 
 // Слушатели
 
