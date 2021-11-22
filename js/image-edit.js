@@ -64,10 +64,18 @@ const setEffectLevelValue = (value) => {
   effectLevelSliderElement.noUiSlider.set(value);
 };
 
+const scaleSmallerButtonClickHandler = () => {
+  decScaleValue();
+}
+
+const scaleBiggerButtonClickHandler = () => {
+  incScaleValue();
+}
+
 // События
 
-scaleSmallerButton.addEventListener('click', decScaleValue);
-scaleBiggerButton.addEventListener('click', incScaleValue);
+scaleSmallerButton.addEventListener('click', scaleSmallerButtonClickHandler);
+scaleBiggerButton.addEventListener('click', scaleBiggerButtonClickHandler);
 
 effectsSelectFieldset.addEventListener('change', (evt) => {
   const effectName = evt.target.value;

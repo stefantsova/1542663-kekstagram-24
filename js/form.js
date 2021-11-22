@@ -29,7 +29,7 @@ const imgEffectsPreviewElements = imgUploadFormElement.querySelectorAll('.effect
 
 const closeimgEditFormElement = () => {
   imgEditFormElement.classList.add('hidden');
-  bodyElement.classList.remove('.modal-open');
+  bodyElement.classList.remove('modal-open');
   imgInputElement.value = '';
 
   document.removeEventListener('keydown', formCloseKeydownHandler);
@@ -69,7 +69,7 @@ const showErrorMessage = () => {
   showMessage(errorMessageTemplate);
 };
 
-const onUploadFileChange = (evt) => {
+const uploadFileChangeHandler = (evt) => {
   const previewImageSrc = URL.createObjectURL(evt.target.files[0]);
 
   imgPreviewElement.src = previewImageSrc;
@@ -88,7 +88,7 @@ const onUploadFileChange = (evt) => {
 
 // События
 
-imgInputElement.addEventListener('change', onUploadFileChange);
+imgInputElement.addEventListener('change', uploadFileChangeHandler);
 
 hashtagsInputElement.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -155,6 +155,7 @@ imgDescriptionInputElement.addEventListener('keydown', (evt) => {
 imgDescriptionInputElement.addEventListener('input', (evt) => {
   const description = evt.target.value;
   let isDescriptionValid = true;
+
 
   if (description.length > 140) {
     evt.target.setCustomValidity('Максимум 140 символов');

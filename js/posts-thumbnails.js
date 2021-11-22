@@ -50,7 +50,7 @@ const renderPosts = (postsToRender) => {
   thumbnailsBlockElement.appendChild(postsThumbnailsFragment);
 };
 
-const onGetPosts = (loadedPosts) => {
+const getPostsHandler = (loadedPosts) => {
   posts = loadedPosts;
   renderPosts(posts);
 };
@@ -63,7 +63,7 @@ const renderFilteredPosts = debounce(() => {
   renderPosts(filteredPosts);
 });
 
-const onChangePostsFilter = (postsFilterName) => {
+const changePostsFilterHandler = (postsFilterName) => {
   const activeFilterButton = postsFiltersElement.querySelector('.img-filters__button--active');
   const selectedFilterButton = postsFiltersElement.querySelector(`#${postsFilterName}`);
 
@@ -87,10 +87,10 @@ const onChangePostsFilter = (postsFilterName) => {
 
 postsFiltersButtons.forEach((filterButton) => {
   filterButton.addEventListener('click', (evt) => {
-    onChangePostsFilter(evt.target.id);
+    changePostsFilterHandler(evt.target.id);
   });
 });
 
-export { showThumbnailsFilters, onGetPosts };
+export { showThumbnailsFilters, getPostsHandler };
 
 

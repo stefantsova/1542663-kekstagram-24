@@ -36,7 +36,7 @@ const openModal = () => {
   });
 };
 
-let postComments = new Array();
+let postComments = [];
 let postCommentsTotal = 0;
 let postCommentsShownCount = 0;
 
@@ -90,9 +90,13 @@ const updateModalData = (url, likes, comments) => {
   loadComments();
 };
 
+const loadMoreCommentsButtonClickHandler = () => {
+  loadComments();
+}
+
 // Слушатели
 
-loadMoreCommentsButton.addEventListener('click', loadComments);
+loadMoreCommentsButton.addEventListener('click', loadMoreCommentsButtonClickHandler);
 
 fullSizePostCloseElement.addEventListener('click', () => {
   closeModal();

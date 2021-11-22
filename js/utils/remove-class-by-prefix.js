@@ -5,7 +5,8 @@
  */
 const removeClassByPrefix = (element, prefix) => {
   const re = new RegExp(`\\b${prefix}[^ ]*[ ]?\\b`, 'g');
-  element.setAttribute('class', element.getAttribute('class').replace(re, ''));
+  const currentClass = element.getAttribute('class') ?? '';
+  element.setAttribute('class', currentClass.replace(re, ''));
   return element;
 };
 
